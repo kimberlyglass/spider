@@ -11,9 +11,9 @@ SPIDER takes three primary inputs, including the location of:
 
 
 In the code, these are designated by the following variables:
-(1) motifdir: A directory containing a series of BED files, one for each TF, listing the location where its corresponding sequence motif can be found in the genome. The names of these files should be of the format <TFname>.bed, the columns in these files are of the form: <chr>\t<start>\t<end>
-(2) epifile: A BED file containing regions of open chromatin. File format is: <chr>\t<start>\t<end> (all other columns ignored)
-(3) regfile: A BED file containing the regulatory regions of genes. File format is: <chr>\t<start>\t<end>\t<gene-name>
+(1) motifdir: A directory containing a series of BED files, one for each TF, listing the location where its corresponding sequence motif can be found in the genome. The names of these files should be of the format \<TFname>.bed, the columns in these files are of the form: \<chr>\t\<start>\t\<end>
+(2) epifile: A BED file containing regions of open chromatin. File format is: \<chr>\t\<start>\t\<end> (all other columns ignored)
+(3) regfile: A BED file containing the regulatory regions of genes. File format is: \<chr>\t\<start>\t\<end>\t\<gene-name>
 
 In addition to these input files, there is one tuning parameter associated with the PANDA message-passing framework:
 alpha: by default is set equal to 0.1. Must be between 0 and 1, values between 0.05 and 0.25 are recommended.
@@ -40,7 +40,7 @@ Output: The output of this step is a single BED file that contains the locations
 (2) STEP 2: Intersect motifs in open chromatin (from Step 1) with gene regulatory regions and create a seed regulatory network:
 Function: BuildSPIDERprior()
 Input-parameter(s): regfile, motifhitfile (created in STEP 1)
-Summary: In this step, SPIDER uses bedtools to overlap a BED file containing the locations of TFs that are in open chromatin (created in Step 1) with a BED file containing the regulatory regions of genes. Note that a gene can have multiple associated regulatory regions in this second file. If a TFâ€™s motif falls within the regulatory region(s) of a gene, then an edge is created between that TF and gene. The maximum score across all TF motif instances associated with a gene is used to weight the edge; by default, this value is one.
+Summary: In this step, SPIDER uses bedtools to overlap a BED file containing the locations of TFs that are in open chromatin (created in Step 1) with a BED file containing the regulatory regions of genes. Note that a gene can have multiple associated regulatory regions in this second file. If a TF's motif falls within the regulatory region(s) of a gene, then an edge is created between that TF and gene. The maximum score across all TF motif instances associated with a gene is used to weight the edge; by default, this value is one.
 Output: The output of this step is an epigenetically-informed seed regulatory network between all transcription factors and genes. 
 
 
@@ -53,5 +53,5 @@ Output: The output of the step is an adjacency matrix where edges between high d
 (4) STEP 4: Apply message-passing
 Function: PANDA()
 Input-parameter(s): alpha, degree-normalized network created in STEP 3
-Summary: SPIDER applies the PANDA message-passing algorithm to the degree-normalized seed network A* calculated in Step 3. PANDAâ€™s message-passing framework integrates information from three networks, representing TF protein-protein interaction (P), TF/gene regulation (W) and gene co-expression (C). In SPIDER, P and C are set equal to the identity matrix; W is set equal to A*.
+Summary: SPIDER applies the PANDA message-passing algorithm to the degree-normalized seed network A* calculated in Step 3. PANDA's message-passing framework integrates information from three networks, representing TF protein-protein interaction (P), TF/gene regulation (W) and gene co-expression (C). In SPIDER, P and C are set equal to the identity matrix; W is set equal to A*.
 Output: This step returns a complete, bi-partite network with edge weights representing the likelihood that a TF regulates a gene; the distribution of these edge weights is similar to z-scores. 
