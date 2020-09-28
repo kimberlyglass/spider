@@ -5,14 +5,19 @@ Authors: Abhijeet R. Sonawane; Kimberly Glass
 
 
 SPIDER takes three primary inputs, including the location of:
+
 (1) potential transcription factor binding sites, which can be defined by position weight matrices mapped onto the DNA
+
 (2) open chromatin regions, based on epigenetic data
+
 (3) gene regulatory regions, which can be defined based on proximity to transcriptional start sites. 
 
 
 In the code, these are designated by the following variables:
 (1) motifdir: A directory containing a series of BED files, one for each TF, listing the location where its corresponding sequence motif can be found in the genome. The names of these files should be of the format <TFname>.bed, the columns in these files are of the form: <chr>\t<start>\t<end>
+  
 (2) epifile: A BED file containing regions of open chromatin. File format is: <chr>\t<start>\t<end> (all other columns ignored)
+  
 (3) regfile: A BED file containing the regulatory regions of genes. File format is: <chr>\t<start>\t<end>\t<gene-name>
 
 In addition to these input files, there is one tuning parameter associated with the PANDA message-passing framework:
