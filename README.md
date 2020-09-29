@@ -6,7 +6,7 @@ Authors: Abhijeet R. Sonawane; Kimberly Glass
 <space>\
 <space>
 
-SPIDER takes three primary inputs, including the location of:\
+SPIDER takes three primary inputs, including the locations of:\
 (1) potential transcription factor binding sites, which can be defined by position weight matrices mapped onto the DNA\
 (2) open chromatin regions, based on epigenetic data\
 (3) gene regulatory regions, which can be defined based on proximity to transcriptional start sites.
