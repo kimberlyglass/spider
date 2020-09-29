@@ -13,7 +13,7 @@ SPIDER takes three primary inputs, including the location of:\
 
 The output of SPIDER is a file containing an epigenetically informed gene regulatory network.
 
-IMPORTANT: bedtools must be installed in order to run SPIDER. Please see https://bedtools.readthedocs.io/ for more information. If bedtools is not already on the system path, please update the following variable to indicate where it is installed: bedtoolspath
+IMPORTANT: bedtools must be installed in order to run SPIDER. Please see https://bedtools.readthedocs.io/ for more information. 
 
 For additional information on SPIDER, please visit: https://sites.google.com/a/channing.harvard.edu/kimberlyglass/tools/spider
 
