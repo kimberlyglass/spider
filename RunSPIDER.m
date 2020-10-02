@@ -1,16 +1,16 @@
 %%%% PARAMETER REGION %%%%
 
 % Input Data
-motifdir='InputData/MotifBedFiles/'; % where the original motif scan files are stored (one bed file per motif)
-epifile='InputData/DNaseBedFiles/GM12878_DnasePeaks.bed'; % bed file with open chromatin regions
-regfile='InputData/RegulatoryRegions/RegulatoryRegions_0-1kb.bed'; % bed file containing regulatory regions for genes
+motifdir='ToyData/MotifBedFiles_subset/'; % where the original motif scan files are stored (one bed file per motif)
+epifile='ToyData/K562_DnasePeaks.bed'; % bed file with open chromatin regions
+regfile='ToyData/RegulatoryRegions_0-1kb_subset.bed'; % bed file containing regulatory regions for genes
 
 % message-passing parameter
 alpha=0.1; % level of message-passing
 
 % output files
-motifhitfile='InputData/EpiMotifFiles/GM12878_filtered_motiflocations.bed'; % intermediate file storing epigenetically informed motif information; created with CreateEpigeneticMotif.m
-outtag='OutputNetworks/0-1kb_GM12878_SPIDER_FinalNetwork.pairs'; % name of file to print the final network info
+motifhitfile='ToyData/dnasefiltered_motiflocations.bed'; % intermediate file storing epigenetically informed motif information; created with CreateEpigeneticMotif.m
+outtag='ToyData_FinalSPIDERNetwork.pairs'; % name of file to print the final network info
 
 % location of codes needed to run SPIDER
 bedtoolspath=''; % where bedtools is installed, set equal to '' if bedtools is already on the system path
@@ -27,10 +27,10 @@ CreateEpigeneticMotif(epifile, motifdir, motifhitfile, bedtoolspath);
 [PriorNet, TFNames, GeneNames]=BuildSPIDERprior(motifhitfile, regfile, bedtoolspath);
 
 % STEP 3: Degree-normalize seed network
-PriorNet=DegreeAdjust(PriorNet);
+DANet=DegreeAdjust(PriorNet);
 
 % STEP 4: Run message-passing
-SpiderNet=PANDA(PriorNet, eye(length(GeneNames)), eye(length(TFNames)), alpha);
+SpiderNet=PANDA(DANet, eye(length(GeneNames)), eye(length(TFNames)), alpha);
 
 
 %%%% Print SPIDER-predcted Network to file %%%%
